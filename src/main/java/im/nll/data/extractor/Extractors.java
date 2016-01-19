@@ -62,6 +62,10 @@ public class Extractors {
      */
     public Extractors extract(String field, Extractor extractor) {
         List<Extractor> extractors = extractorsMap.getOrDefault(field, Lists.newLinkedList());
+         if(extractor.getClass().getName().indexOf("JSON")>-1){//如果是json解析 判断是否是json字符串 
+        	if(!StringUtils.isJson(this.html)) 
+        		return this;
+        }
         extractors.add(extractor);
         extractorsMap.put(field, extractors);
         this.prevField = field;
