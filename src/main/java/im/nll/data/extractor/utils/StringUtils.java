@@ -18,6 +18,10 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
+
 public class StringUtils {
     private static final Logger logger = Logs.get();
     /**
@@ -2080,4 +2084,21 @@ public class StringUtils {
         }
         return list;
     }
+      /**
+     * 判断是否是json格式的字符串
+     *
+     * @param String
+     * @return boolean
+     */
+    public static boolean isJson(String jsonstr){
+		ScriptEngineManager sem = new ScriptEngineManager ();
+		ScriptEngine se = sem.getEngineByName ("js");
+		try {
+			se.eval (jsonstr);
+			return true;
+		} catch (ScriptException e) {
+			 //e.printStackTrace();
+		}
+		return false;
+	}
 }
